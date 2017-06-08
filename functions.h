@@ -9,6 +9,7 @@ typedef struct{
     int val;
 } calorie;
 
+void readPack(int nrOfelements, calorie list[], FILE *file);
 
 int sum(calorie list[], int num);
 
