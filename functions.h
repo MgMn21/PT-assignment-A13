@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct{
     char name[3];
@@ -10,6 +11,8 @@ typedef struct{
 } calorie;
 
 void readPack(int nrOfelements, calorie list[], FILE *file);
+
+void readExercises(int nrOfexercises, calorie exerciselist[], FILE *exfile);
 
 int sum(calorie list[], int num);
 

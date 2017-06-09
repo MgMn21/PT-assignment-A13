@@ -1,6 +1,7 @@
 #include "functions.h"
 
 int sum(calorie list[], int num) {
+
         int s = 0;
         for(int i = 0; i < num; i++){
             s = s + list[i].val;
@@ -9,8 +10,10 @@ int sum(calorie list[], int num) {
 }
 
 void readPack(int nrOfelements, calorie list[], FILE *file){
+
         int i, j;
         char ch;
+
         for(i = 0; i < nrOfelements; i++){
             j = 0;
             while((ch = fgetc(file)) != '\n'){
@@ -34,4 +37,22 @@ void readPack(int nrOfelements, calorie list[], FILE *file){
             printf(" - %d\n", list[i].val);
         }
         printf("\nFor a total of %d calories.\n", sum(list, nrOfelements));
+}
+
+void readExercises(int nrOfexercises, calorie exerciselist[], FILE *exfile){
+
+        int k, q;
+        char cha;
+
+        for(k = 0; k < nrOfexercises; k++){
+            q = 0;
+            while((cha = fgetc(exfile)) != '\n'){
+                exerciselist[k].name[q] = cha;
+                q++;
+            }
+        }
+
+        for(k = 0; k < nrOfexercises; k++){
+            fscanf(exfile, "%d", &exerciselist[k].val);\
+        }
 }
