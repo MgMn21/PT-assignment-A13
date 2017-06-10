@@ -1,24 +1,34 @@
-/**
-*       @file main.c
-*       @brief this source file will contain local helper variables for our
-*       functions, calls to the functions and implementation of a basic UI.
-*
-*       @author Matei Nicolae
-*
-*       @date 06/10/2017
-*/
+///@file main.c
+///@brief Source file containing local helper variables for our functions, calls to the functions and implementation of a basic UI.
 
 #include "functions.h"
 
 int main()
 {
+
+        ///@fn int main()
+        ///@brief Main function
+        ///Function calls for sum, readPack, readExercises and findSolution imported from functions.h
+        ///The calorie structure is defined in functions.h
+        ///The FILE and calorie type variables are declared in functions.h
+        ///@var test Helper for the UI, selects the pack
+        ///@var nrOfsnacks The number of snacks in a pack
+        ///@var nrOfexercises The number of exercises in a list
+        ///@var routines Helper for the UI, selects the exercise list
+        ///@var valid Helper for the UI, checks if the user introduced a valid input
+        ///@var index Parameter for the findSolution function
+        ///@var lastsum Parameter for the findSolution function
+        ///@var currsum Parameter for the findSolution function
+        ///@var sollution Parameter for the findSolution function
+        ///@var foundsol Parameter for the findSolution function
+
         resultfile = fopen("result.txt", "w");
 
-        int test;                  /// This is used to select the pack we will test
-        int nrOfsnacks;            /// Used to store the number of snacks in the pack
-        int nrOfexercises;         /// Used to store the number of exercises in the list
-        int routines;              /// Used to select the exercise routine we will be searching the solution in
-        int valid = 0;             /// Used to check if the user has selected a valid option
+        int test;
+        int nrOfsnacks;
+        int nrOfexercises;
+        int routines;
+        int valid = 0;
 
         while(valid == 0){
             printf("Select your preferred snack pack:\n\n1.Pack#1\n2.Pack#2\n3.Pack#3\n4.Pack#4\n5.Pack#5\n\n   #");
@@ -83,14 +93,14 @@ int main()
             }
         }
 
-        fscanf(zefile, "%d", &nrOfexercises);               /// We read the number of exercises in the routine from the file
-        readExercises(nrOfexercises, exerciseList, zefile);     /// We read and store the selected routine
+        fscanf(zefile, "%d", &nrOfexercises);
+        readExercises(nrOfexercises, exerciseList, zefile);
 
-        int index = 0;              /// We initialize the index used in the findSolution function
-        int lastsum = (2^31)-1;     /// We set the lastsum variable to a very high number
-        int currsum = 0;            /// We initialize the current sum with 0
-        int sollution[51];          /// We will store the indexes of the used elements in this array
-        int foundsol = 0;           /// We initialize the solution check with 0
+        int index = 0;
+        int lastsum = (2^31)-1;
+        int currsum = 0;
+        int sollution[51];
+        int foundsol = 0;
 
         findSolution(exerciseList, targetSum, index, nrOfexercises, currsum, sollution, lastsum, &foundsol, resultfile);
 

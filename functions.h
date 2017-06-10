@@ -1,12 +1,6 @@
-/**
-*       @file functions.h
-*       @brief this header file will contain essential structure definitions,
-*       variable and function declarations.
-*
-*       @author Matei Nicolae
-*
-*       @date 06/10/2017
-*/
+///@file functions.h
+///@brief Header file containing essential structure definitions, variable and function declarations.
+
 
 #ifndef FUNCTIONS_H_INCLUDED
 #define FUNCTIONS_H_INCLUDED
@@ -14,10 +8,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/**
-*       We will use the following structure to store our data:
-*       the name of the snack/exercise and it's caloric impact
-*/
 typedef struct{
     char name[31];
     int val;
