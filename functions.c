@@ -132,7 +132,7 @@ void findSolution(calorie exerciselist[], int targetsum, int index, int nrofexer
             }
 
             printf("\n  -- The routine was saved on your computer in the file 'result.txt' --\n\n");
-            return;
+            exit(1);            /// We exit since we only need to find one of the possible solutions
 
         }
         else{
