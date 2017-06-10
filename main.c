@@ -13,11 +13,12 @@
 int main()
 {
         resultfile = fopen("result.txt", "w");
-        int test;
-        int nrOfsnacks;
-        int nrOfexercises;
-        int routines;
-        int valid = 0;
+
+        int test;                  /// This is used to select the pack we will test
+        int nrOfsnacks;            /// Used to store the number of snacks in the pack
+        int nrOfexercises;         /// Used to store the number of exercises in the list
+        int routines;              /// Used to select the exercise routine we will be searching the solution in
+        int valid = 0;             /// Used to check if the user has selected a valid option
 
         while(valid == 0){
             printf("Select your preferred snack pack:\n\n1.Pack#1\n2.Pack#2\n3.Pack#3\n4.Pack#4\n5.Pack#5\n\n   #");
@@ -49,14 +50,14 @@ int main()
             }
         }
 
-        fscanf(zefile, "%d", &nrOfsnacks);
-        readPack(nrOfsnacks, list, zefile);
+        fscanf(zefile, "%d", &nrOfsnacks);          /// We read the number of snacks in the pack from the file
+        readPack(nrOfsnacks, list, zefile);         /// We read and store the selected pack
 
-        int targetSum = sum(list, nrOfsnacks);
+        int targetSum = sum(list, nrOfsnacks);      /// We compute and store the total calorie count of the selected pack
 
         fclose(zefile);
 
-        valid = 0;
+        valid = 0;          /// We reinitialize the validity check for the routine selection
 
         while(valid == 0){
 
@@ -82,24 +83,24 @@ int main()
             }
         }
 
-        fscanf(zefile, "%d", &nrOfexercises);
-        readExercises(nrOfexercises, exerciseList, zefile);
+        fscanf(zefile, "%d", &nrOfexercises);               /// We read the number of exercises in the routine from the file
+        readExercises(nrOfexercises, exerciseList, zefile);     /// We read and store the selected routine
 
-        int index = 0;
-        int lastsum = (2^31)-1;
-        int currsum = 0;
-        int sollution[51];
-        int foundsol = 0;
+        int index = 0;              /// We initialize the index used in the findSolution function
+        int lastsum = (2^31)-1;     /// We set the lastsum variable to a very high number
+        int currsum = 0;            /// We initialize the current sum with 0
+        int sollution[51];          /// We will store the indexes of the used elements in this array
+        int foundsol = 0;           /// We initialize the solution check with 0
 
         findSolution(exerciseList, targetSum, index, nrOfexercises, currsum, sollution, lastsum, &foundsol, resultfile);
 
-        fclose(zefile);
+        fclose(zefile);         /// We close the I/O streams
         fclose(resultfile);
 
-        if(foundsol == 1){
-            return 0;
+        if(foundsol == 1){      /// We check if we have found a solution
+            return 0;           /// If we have we end the program
         }
-        else{
+        else{                   /// If we haven't we tell the user that no solution has been found and end the program
               printf("\n  -- Unfortunately we can not find a balanced exercise routine for snack pack #%d from exercise list #%d --\n\n", test, routines);
               return 0;
         }

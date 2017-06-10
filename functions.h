@@ -14,6 +14,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+*       We will use the following structure to store our data:
+*       the name of the snack/exercise and it's caloric impact
+*/
 typedef struct{
     char name[31];
     int val;
