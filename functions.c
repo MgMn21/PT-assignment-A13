@@ -1,3 +1,13 @@
+/**
+*       @file functions.c
+*       @brief this source file will contain definitions of all of
+*       the program's functions.
+*
+*       @author Matei Nicolae
+*
+*       @date 06/10/2017
+*/
+
 #include "functions.h"
 
 int sum(calorie list[], int num) {
@@ -36,7 +46,7 @@ void readPack(int nrOfelements, calorie list[], FILE *file){
             }
             printf(" - %d cal\n", list[i].val);
         }
-        printf("\n  -- For a total of %d calories --\n", sum(list, nrOfelements));
+        printf("\n  -- For a total of %d calories\n\n --\n", sum(list, nrOfelements));
 }
 
 void readExercises(int nrOfexercises, calorie exerciselist[], FILE *exfile){
