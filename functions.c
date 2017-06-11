@@ -1,35 +1,24 @@
-///@file functions.c
-///@brief Source file containing definitions of all of the program's functions.
+/*
+    Unfortunately I couldn't include this file in the doxigen documentation because
+    it would've taken all of the functions twice, but since the comments for the functions are
+    in the header file this one only needed comments on a few variables anyway so no major loss.
+*/
 
 #include "functions.h"
 
-///@fn int sum(calorie list[], int num)
-///@brief This method will be used to compute the total sum of calories in the selected pack
-///@param list[] The structure which holds the data
-///@param num The total number of snacks in the pack
-///@var s Used to store the sum
-///@var i Used to iterate through the list
 int sum(calorie list[], int num){
 
-        int s = 0;                      /// s is used to store the sum
-        for(int i = 0; i < num; i++){   /// i is used to iterate trough the list
+        int s = 0;                      //s - used to store the sum
+        for(int i = 0; i < num; i++){   //i - used to iterate trough the list
             s = s + list[i].val;
         }
         return s;
 }
 
-///@fn void readPack(int nrOfelements, calorie list[], FILE *file)
-///@brief This method will be used to read the contents of the selected pack from a file
-///@param nrOfelements The number of elements/snacks in the pack
-///@param list[] The structure which holds the data
-///@param file FILE type object for file Input
-///@var i Used to iterate through the list
-///@var j Used to iterate through the name string
-///@var ch Helper for reading the names character by character
 void readPack(int nrOfelements, calorie list[], FILE *file){
 
-        int i, j;
-        char ch;
+        int i, j;                       //i and j - used to iterate trough the list structure and name string respectively
+        char ch;                        //ch - a helper for reading the name string character by character
 
         for(i = 0; i < nrOfelements; i++){
             j = 0;
@@ -56,18 +45,10 @@ void readPack(int nrOfelements, calorie list[], FILE *file){
         printf("\n  -- For a total of %d calories\n\n --\n", sum(list, nrOfelements));
 }
 
-///@fn void readExercises(int nrOfexercises, calorie exerciselist[], FILE *exfile)
-///@brief This method will be used to read the contents of the selected exercise list from a file
-///@param nrOfexercises   The number of elements/exercises in the list
-///@param exerciselist[]  The structure which holds the data
-///@param exfile          FILE type object for file Input
-///@var i Used to iterate through the list
-///@var j Used to iterate through the name string
-///@var cha Helper for reading the names character by character
 void readExercises(int nrOfexercises, calorie exerciselist[], FILE *exfile){
 
-        int i, j;
-        char cha;
+        int i, j;                       //i and j - used to iterate trough the list structure and name string respectively
+        char cha;                       //cha - a helper for reading the name string character by character
 
         for(i = 0; i < nrOfexercises; i++){
             j = 0;
@@ -82,26 +63,13 @@ void readExercises(int nrOfexercises, calorie exerciselist[], FILE *exfile){
         }
 }
 
-///@fn void findSolution(calorie exerciselist[], int targetsum, int index, int nrofexercises, int currsum, int solution[], int lastsum, int *foundsol, FILE *resultfile)
-///@brief This method will be used to compute the solution for out problem, if a solution exists
-///@param exerciselist[] The structure which holds the data
-///@param targetsum The target amount of calories we aim to burn
-///@param index Variable used to search the data
-///@param nrofexercises The number of exercises in the list
-///@param currsum Variable used to store the sum at the current iteration
-///@param solution[] Array used to store the indexes of the elements that led us to the solution
-///@param lastsum Variable used to calculate weather the current sum is, or is closer, to the solution
-///@param foundsol Variable used to check if we have reached a solution
-///@param resultfile FILE type object for file Output
-///@var i Used to iterate through the list
-///@var j Used to iterate through the name string
 void findSolution(calorie exerciselist[], int targetsum, int index, int nrofexercises, int currsum, int solution[], int lastsum, int *foundsol, FILE *resultfile){
 
-        if((currsum + targetsum) <= lastsum){
+        if(((currsum + targetsum) <= lastsum) && ((currsum + targetsum) >= 0)){
             lastsum = currsum + targetsum;
         }
 
-        if(lastsum == 0){
+        if(lastsum == 0){                       //check if we've found a solution
 
             printf("\n  -- Exercise routine found for a total caloric intake of 0: --\n\n");
             fprintf(resultfile ,"       --  Here is your exercise routine  --\n\n");
@@ -116,23 +84,23 @@ void findSolution(calorie exerciselist[], int targetsum, int index, int nrofexer
                         j++;
                     }
 
-                    printf(" -> %d cal\n", exerciselist[i].val);
+                    printf(" -> %d cal\n", exerciselist[i].val);                //print the solution and save it in a file
                     fprintf(resultfile, " -> %d cal\n", exerciselist[i].val);
-                    *foundsol = 1;
+                    *foundsol = 1;              //confirm that we've found a solution
                 }
             }
 
             printf("\n  -- The routine was saved on your computer in the file 'result.txt' --\n\n");
-            exit(1);
+            exit(1);                            //exit the function since we've found the solution
 
         }
         else{
             if(index == nrofexercises){
-                return;
+                return;                         //return if we've reached the end of the list
             }
             else {
-                solution[index] = 1;
-                currsum = currsum + exerciselist[index].val;
+                solution[index] = 1;                            //otherwise continue adding or removing elements until we have
+                currsum = currsum + exerciselist[index].val;    //every possible combination or we've reached a solution
                 findSolution(exerciselist, targetsum, index + 1, nrofexercises, currsum, solution, lastsum, foundsol, resultfile);
                 currsum = currsum - exerciselist[index].val;
                 solution[index] = 0;

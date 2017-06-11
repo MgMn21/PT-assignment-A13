@@ -1,33 +1,50 @@
-///@file main.c
-///@brief Source file containing local helper variables for our functions, calls to the functions and implementation of a basic UI.
+///\file main.c
+///\brief Source file containing the main function.
+///\author Popescu Matei
 
 #include "functions.h"
 
-int main()
-{
-
-        ///@fn int main()
-        ///@brief Main function
-        ///Function calls for sum, readPack, readExercises and findSolution imported from functions.h
-        ///The calorie structure is defined in functions.h
-        ///The FILE and calorie type variables are declared in functions.h
-        ///@var test Helper for the UI, selects the pack
-        ///@var nrOfsnacks The number of snacks in a pack
-        ///@var nrOfexercises The number of exercises in a list
-        ///@var routines Helper for the UI, selects the exercise list
-        ///@var valid Helper for the UI, checks if the user introduced a valid input
-        ///@var index Parameter for the findSolution function
-        ///@var lastsum Parameter for the findSolution function
-        ///@var currsum Parameter for the findSolution function
-        ///@var sollution Parameter for the findSolution function
-        ///@var foundsol Parameter for the findSolution function
-
+int main(){
+        /*!
+            \fn int main()
+            \brief This is the main function
+        */
         resultfile = fopen("result.txt", "w");
 
+        /*!
+            \var int test
+            \brief Variable for the UI
+
+            Used to select the pack
+        */
         int test;
+
+        /*!
+            \var int nrOfsnacks
+            \brief Used to store the number of snacks in the pack
+        */
         int nrOfsnacks;
+
+        /*!
+            \var int nrOfexercises
+            \brief Used to store the number of activities in the list
+        */
         int nrOfexercises;
+
+        /*!
+            \var int routines
+            \brief Variable for the UI
+
+            Used to select the exercise list
+        */
         int routines;
+
+        /*!
+            \var int valid
+            \brief Variable for the UI
+
+            Used to check if the user entered a valid option
+        */
         int valid = 0;
 
         while(valid == 0){
@@ -60,14 +77,18 @@ int main()
             }
         }
 
-        fscanf(zefile, "%d", &nrOfsnacks);          /// We read the number of snacks in the pack from the file
-        readPack(nrOfsnacks, list, zefile);         /// We read and store the selected pack
+        fscanf(zefile, "%d", &nrOfsnacks);
+        readPack(nrOfsnacks, list, zefile);
 
-        int targetSum = sum(list, nrOfsnacks);      /// We compute and store the total calorie count of the selected pack
+        /*!
+            \var int targetsum
+            \brief Used to store the total caloric impact of the snacks
+        */
+        int targetSum = sum(list, nrOfsnacks);
 
         fclose(zefile);
 
-        valid = 0;          /// We reinitialize the validity check for the routine selection
+        valid = 0;
 
         while(valid == 0){
 
@@ -96,21 +117,45 @@ int main()
         fscanf(zefile, "%d", &nrOfexercises);
         readExercises(nrOfexercises, exerciseList, zefile);
 
+        /*!
+            \var int index
+            \brief Used to iterate trough the data
+        */
         int index = 0;
+
+        /*!
+            \var int lastsum
+            \brief Used to check if the current sum is close to a solution
+        */
         int lastsum = (2^31)-1;
+
+        /*!
+            \var int currsum
+            \brief Used to store the current sum
+        */
         int currsum = 0;
+
+        /*!
+            \var int solution
+            \brief Used to store the indexes of the elements whose sum led us to the solution
+        */
         int sollution[51];
+
+        /*!
+            \var int foundsol
+            \brief Used to check if a solution was found
+        */
         int foundsol = 0;
 
         findSolution(exerciseList, targetSum, index, nrOfexercises, currsum, sollution, lastsum, &foundsol, resultfile);
 
-        fclose(zefile);         /// We close the I/O streams
+        fclose(zefile);
         fclose(resultfile);
 
-        if(foundsol == 1){      /// We check if we have found a solution
-            return 0;           /// If we have we end the program
+        if(foundsol == 1){
+            return 0;
         }
-        else{                   /// If we haven't we tell the user that no solution has been found and end the program
+        else{
               printf("\n  -- Unfortunately we can not find a balanced exercise routine for snack pack #%d from exercise list #%d --\n\n", test, routines);
               return 0;
         }
