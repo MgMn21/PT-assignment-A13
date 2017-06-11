@@ -124,12 +124,6 @@ int main(){
         int index = 0;
 
         /*!
-            \var int lastsum
-            \brief Used to check if the current sum is close to a solution
-        */
-        int lastsum = (2^31)-1;
-
-        /*!
             \var int currsum
             \brief Used to store the current sum
         */
@@ -147,7 +141,7 @@ int main(){
         */
         int foundsol = 0;
 
-        findSolution(exerciseList, targetSum, index, nrOfexercises, currsum, sollution, lastsum, &foundsol, resultfile);
+        findSolution(exerciseList, targetSum, index, nrOfexercises, currsum, sollution, &foundsol, resultfile);
 
         fclose(zefile);
         fclose(resultfile);

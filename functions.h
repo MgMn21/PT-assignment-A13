@@ -77,11 +77,10 @@ int sum(calorie list[], int num);
     \param nrofexercises The number of exercises in the list
     \param currsum Variable used to store the sum at the current iteration
     \param solution[] Array used to store the indexes of the elements that led us to the solution
-    \param lastsum Variable used to calculate weather the current sum is, or is closer, to the solution
     \param foundsol Variable used to check if we have reached a solution
     \param resultfile FILE type object for file Output
 */
-void findSolution(calorie exerciselist[], int targetsum, int index, int nrofexercises, int currsum, int solution[], int lastsum, int *foundsol, FILE* resultfile);
+void findSolution(calorie exerciselist[], int targetsum, int index, int nrofexercises, int currsum, int solution[], int *foundsol, FILE* resultfile);
 
 
 #endif // FUNCTIONS_H_INCLUDED

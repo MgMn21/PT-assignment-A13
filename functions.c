@@ -63,13 +63,9 @@ void readExercises(int nrOfexercises, calorie exerciselist[], FILE *exfile){
         }
 }
 
-void findSolution(calorie exerciselist[], int targetsum, int index, int nrofexercises, int currsum, int solution[], int lastsum, int *foundsol, FILE *resultfile){
+void findSolution(calorie exerciselist[], int targetsum, int index, int nrofexercises, int currsum, int solution[], int *foundsol, FILE *resultfile){
 
-        if(((currsum + targetsum) <= lastsum) && ((currsum + targetsum) >= 0)){
-            lastsum = currsum + targetsum;
-        }
-
-        if(lastsum == 0){                       //check if we've found a solution
+        if((currsum + targetsum) == 0){                       //check if we've found a solution
 
             printf("\n  -- Exercise routine found for a total caloric intake of 0: --\n\n");
             fprintf(resultfile ,"       --  Here is your exercise routine  --\n\n");
@@ -101,10 +97,10 @@ void findSolution(calorie exerciselist[], int targetsum, int index, int nrofexer
             else {
                 solution[index] = 1;                            //otherwise continue adding or removing elements until we have
                 currsum = currsum + exerciselist[index].val;    //every possible combination or we've reached a solution
-                findSolution(exerciselist, targetsum, index + 1, nrofexercises, currsum, solution, lastsum, foundsol, resultfile);
+                findSolution(exerciselist, targetsum, index + 1, nrofexercises, currsum, solution, foundsol, resultfile);
                 currsum = currsum - exerciselist[index].val;
                 solution[index] = 0;
-                findSolution(exerciselist, targetsum, index + 1, nrofexercises, currsum, solution, lastsum, foundsol, resultfile);
+                findSolution(exerciselist, targetsum, index + 1, nrofexercises, currsum, solution, foundsol, resultfile);
             }
         }
 
